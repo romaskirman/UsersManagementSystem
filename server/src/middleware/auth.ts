@@ -1,7 +1,7 @@
-import { NextFunction, Request, Response } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 import { prisma, verifyToken } from '../lib.js';
 import { MESSAGES } from '../constants/messages.js';
-import { AuthUser, JwtPayload } from '../types/auth.js';
+import type { AuthUser, JwtPayload } from '../types/auth.js';
 
 type AuthedRequest = Request & {
   user?: AuthUser;

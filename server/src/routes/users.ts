@@ -3,6 +3,7 @@ import { prisma } from '../lib.js';
 import { MESSAGES } from '../constants/messages.js';
 import { requireAuth, requireManageUsers } from '../middleware/auth.js';
 import { parseIds } from '../utils/users.js';
+import { UserStatus } from '@prisma/client';
 
 const router = Router();
 
@@ -101,10 +102,11 @@ router.post('/unblock', async (req, res) => {
       });
 
       for (const user of users) {
+        const restoredStatus = user.blockedFromStatus ?? UserStatus.active;
         await tx.user.update({
           where: { id: user.id },
           data: {
-            status: user.blockedFromStatus || 'active',
+            status: restoredStatus,
             blockedFromStatus: null,
           },
         });

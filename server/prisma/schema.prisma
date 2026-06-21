@@ -19,7 +19,7 @@ model User {
   name              String
   passwordHash      String
   status            UserStatus @default(unverified)
-  blockedFromStatus String?
+  blockedFromStatus UserStatus?
   emailVerifiedAt   DateTime?
   lastLoginAt       DateTime?
   lastActivityAt    DateTime?
