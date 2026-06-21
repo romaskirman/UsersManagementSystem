@@ -13,7 +13,7 @@ export const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:4000';
 export const mailer = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: Number(process.env.SMTP_PORT || 587),
-  secure: false,
+  secure: true,
   auth: process.env.SMTP_USER
     ? {
         user: process.env.SMTP_USER,
