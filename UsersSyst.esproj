@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.271090-alpha">
+  <ItemGroup>
+    <Folder Include="server\src\middleware\" />
+    <Folder Include="server\src\routes\" />
+    <Folder Include="server\src\utils\" />
+  </ItemGroup>
+</Project>
