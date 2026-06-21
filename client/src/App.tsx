@@ -12,7 +12,7 @@ export default function App() {
       <Route path={ROUTES.home} element={<Navigate to={ROUTES.login} replace />} />
       <Route path={ROUTES.login} element={<Login />} />
       <Route path={ROUTES.register} element={<Register />} />
-      <Route path={ROUTES.users} element={<Verify />} />
+      <Route path={ROUTES.verify} element={<Verify />} />
       <Route
         path={ROUTES.app}
         element={
@@ -21,6 +21,7 @@ export default function App() {
           </ProtectedRoute>
         }
       />
+      <Route path="*" element={<Navigate to={ROUTES.login} replace />} />
     </Routes>
   );
 }
