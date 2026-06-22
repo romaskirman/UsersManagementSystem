@@ -46,6 +46,8 @@ router.post('/register', async (req, res) => {
     const verificationToken = crypto.randomBytes(32).toString('hex');
     const passwordHash = await hashPassword(password);
 
+    console.log('register start', email);
+
     await prisma.user.create({
       data: {
         name,
@@ -56,7 +58,12 @@ router.post('/register', async (req, res) => {
       },
     });
 
+    console.log('user created', email);
+    console.log('about to send verification email', email);
+
     await sendVerificationEmail(email, verificationToken);
+
+    console.log('verification email sent', email);
 
     return res.json({
       message: MESSAGES.registrationSuccess,
