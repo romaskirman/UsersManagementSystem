@@ -5,7 +5,7 @@ import process from 'process';
 
 export const prisma = new PrismaClient();
 export const JWT_SECRET = process.env.JWT_SECRET || 'change_me';
-export const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
+export const FRONTEND_URL = process.env.FRONTEND_URL;
 
 export const hashPassword = (password: string) => bcrypt.hash(password, 10);
 export const verifyPassword = (password: string, hash: string) => bcrypt.compare(password, hash);

@@ -37,9 +37,9 @@ export async function sendVerificationEmail(email: string, token: string) {
   const sender = getSenderConfigForRecipient(email);
   const resend = new Resend(sender.apiKey);
 
-  const link = `${process.env.BACKEND_URL || 'http://localhost:4000'}/api/auth/verify-email?token=${encodeURIComponent(token)}`;
+  const link = `${process.env.BACKEND_URL}/api/auth/verify-email?token=${encodeURIComponent(token)}`;
 
-  const result = await resend.emails.send({
+  await resend.emails.send({
     from: process.env.RESEND_FROM || 'onboarding@resend.dev',
     to: email,
     subject: 'Verify your email',
@@ -48,11 +48,5 @@ export async function sendVerificationEmail(email: string, token: string) {
       <p>Click the link below to verify your account:</p>
       <p><a href="${link}">${link}</a></p>
     `,
-  });
-
-  console.log('verification email sent', {
-    to: email,
-    from: process.env.RESEND_FROM || 'onboarding@resend.dev',
-    result,
   });
 }

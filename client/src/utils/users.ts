@@ -67,14 +67,14 @@ export function updateUsersAfterSelfAction(
     );
   }
 
-    if (action === 'block') {
-      return users.map((user): UserRow =>
-        selected.includes(user.id)
-          ? { ...user, status: 'blocked' }
-          : user
-      );
-    }
-
+  if (action === 'block') {
+    return users.map((user): UserRow =>
+    selected.includes(user.id)
+        ? { ...user, status: 'blocked' }
+        : user
+    );
+  }
+  
   return users;
 }
 
