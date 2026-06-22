@@ -3,7 +3,7 @@ import cors from 'cors';
 import express from 'express';
 import authRoutes from './routes/auth.js';
 import userRoutes from './routes/users.js';
-import { FRONTEND_URL, mailer } from './lib.js';
+import { FRONTEND_URL } from './lib.js';
 
 const app = express();
 
