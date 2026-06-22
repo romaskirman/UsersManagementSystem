@@ -1,10 +1,10 @@
-import { BACKEND_URL, mailer } from '../lib.js';
+import { resend } from '../lib.js';
 
 export async function sendVerificationEmail(email: string, token: string) {
-  const link = `${BACKEND_URL}/api/auth/verify-email?token=${encodeURIComponent(token)}`;
+  const link = `${process.env.BACKEND_URL}/api/auth/verify-email?token=${encodeURIComponent(token)}`;
 
-  await mailer.sendMail({
-    from: process.env.SMTP_FROM,
+  await resend.emails.send({
+    from: process.env.RESEND_FROM!,
     to: email,
     subject: 'Verify your email',
     text: `Verify your email: ${link}`,

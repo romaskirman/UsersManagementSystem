@@ -35,10 +35,6 @@ app.get('/health', (_req, res) => {
   res.json({ ok: true });
 });
 
-mailer.verify()
-.then(() => console.log('SMTP verify ok'))
-    .catch((err) => console.error('SMTP verify failed:', err));
-
 const PORT = Number(process.env.PORT) || 4000;
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
