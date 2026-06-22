@@ -1,7 +1,7 @@
 import { Resend } from 'resend';
 
 type SenderConfig = {
-  from: string;
+  to: string;
   apiKey: string;
 };
 
@@ -9,12 +9,12 @@ function getSenderConfigs(): SenderConfig[] {
   const configs: SenderConfig[] = [];
 
   for (let i = 1; i <= 10; i++) {
-    const from = process.env[`RESEND_FROM_${i}`];
+    const to = process.env[`RESEND_TO_${i}`];
     const apiKey = process.env[`RESEND_API_KEY_${i}`];
 
-    if (from && apiKey) {
+    if (to && apiKey) {
       configs.push({
-        from: from.trim().toLowerCase(),
+        to: to.trim().toLowerCase(),
         apiKey: apiKey.trim(),
       });
     }
@@ -27,10 +27,10 @@ function getSenderConfigForRecipient(email: string): SenderConfig {
   const normalizedEmail = email.trim().toLowerCase();
   const configs = getSenderConfigs();
 
-  const exactMatch = configs.find((config) => config.from === normalizedEmail);
+  const exactMatch = configs.find((config) => config.to === normalizedEmail);
   if (exactMatch) return exactMatch;
 
-  throw new Error(`No Resend sender config found for recipient: ${normalizedEmail}`);
+  throw new Error(`No Resend API key configured for recipient: ${normalizedEmail}`);
 }
 
 export async function sendVerificationEmail(email: string, token: string) {
@@ -40,7 +40,7 @@ export async function sendVerificationEmail(email: string, token: string) {
   const link = `${process.env.BACKEND_URL || 'http://localhost:4000'}/api/auth/verify-email?token=${encodeURIComponent(token)}`;
 
   const result = await resend.emails.send({
-    from: sender.from,
+    from: process.env.RESEND_FROM || 'onboarding@resend.dev',
     to: email,
     subject: 'Verify your email',
     text: `Verify your email: ${link}`,
@@ -52,7 +52,7 @@ export async function sendVerificationEmail(email: string, token: string) {
 
   console.log('verification email sent', {
     to: email,
-    from: sender.from,
+    from: process.env.RESEND_FROM || 'onboarding@resend.dev',
     result,
   });
 }
