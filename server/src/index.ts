@@ -3,7 +3,7 @@ import cors from 'cors';
 import express from 'express';
 import authRoutes from './routes/auth.js';
 import userRoutes from './routes/users.js';
-import { FRONTEND_URL } from './lib.js';
+import { FRONTEND_URL, mailer } from './lib.js';
 
 const app = express();
 
@@ -34,6 +34,10 @@ app.use('/api/users', userRoutes);
 app.get('/health', (_req, res) => {
   res.json({ ok: true });
 });
+
+mailer.verify()
+.then(() => console.log('SMTP verify ok'))
+    .catch((err) => console.error('SMTP verify failed:', err));
 
 const PORT = Number(process.env.PORT) || 4000;
 app.listen(PORT, () => {
